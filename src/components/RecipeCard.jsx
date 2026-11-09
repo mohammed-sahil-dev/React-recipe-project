@@ -3,10 +3,10 @@ import { Link } from 'react-router';
 
 function RecipeCard({ recipe }) {
 
-    const {id,prepTimeMinutes,cookTimeMinutes} = recipe
+  const { id, prepTimeMinutes, cookTimeMinutes } = recipe
   const totalTime = prepTimeMinutes + cookTimeMinutes;
 
-   
+
   return (
     <Link to={`/recipe/${id}`}
       className="bg-card border border-border rounded-md hover:border-accent overflow-hidden flex flex-col"

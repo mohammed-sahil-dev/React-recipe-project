@@ -16,15 +16,14 @@ function Home() {
 
 
     async function fetchrecipe(skipCount, query) {
-         setloading(query);
+        setloading(query);
         try {
 
             let url = `https://dummyjson.com/recipes?limit=6&skip=${skipCount}`
-            if(query){
+            if (query) {
                 url = `https://dummyjson.com/recipes/search?limit=6&skip=${skipCount}&q=${query}`
             }
             const { data } = await axios.get(url)
-            console.log(data);
             setrecipes((prev) =>
                 skipCount === 0 ? data.recipes : [...prev, ...data.recipes]);
             setTotal(data.total)
@@ -33,7 +32,7 @@ function Home() {
             setErrorMsg("please try again later.")
 
         }
-          setloading(false)
+        setloading(false)
     }
 
     useEffect(() => {
@@ -41,29 +40,29 @@ function Home() {
 
     }, [])
 
-    
-      function handleSearch(e){
-      e.preventDefault();
 
-      const form = new FormData(e.target)
-      let query =  form.get("query").trim() ;
+    function handleSearch(e) {
+        e.preventDefault();
+
+        const form = new FormData(e.target)
+        let query = form.get("query").trim();
         setSearchquery(query)
-        if(query){
+        if (query) {
             fetchrecipe(0, query);
-            
-        }
-    
-      }
-   
 
-     
-  if (errorMsg) {
-    return (
-      <main className="max-w-6xl mx-auto px-4 py-8">
-        <p className="text-accent text-center">{errorMsg}</p>
-      </main>
-    );
-  }
+        }
+
+    }
+
+
+
+    if (errorMsg) {
+        return (
+            <main className="max-w-6xl mx-auto px-4 py-8">
+                <p className="text-accent text-center">{errorMsg}</p>
+            </main>
+        );
+    }
 
     return (
         <main className="max-w-6xl mx-auto px-4 py-8">
@@ -80,15 +79,15 @@ function Home() {
                     Search
                 </button>
 
-              
-                
+
+
             </form>
 
-            {loading && <p className='text-center py-6 text-muted'>Loading....</p> }
-            {!loading && recipes.length === 0 &&  (
+            {loading && <p className='text-center py-6 text-muted'>Loading....</p>}
+            {!loading && recipes.length === 0 && (
                 <p className='text-center py-6 text-muted'>{`No recipes found for '${Searchquery}'`}</p>
             )}
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {recipes.map((recipe) => (
                     <RecipeCard key={recipe.id} recipe={recipe} />
@@ -99,7 +98,7 @@ function Home() {
             {recipes.length < total && <div className="text-center mt-8">
                 <button
                     type="button"
-                    onClick={() => fetchrecipe(recipes.length,Searchquery)}
+                    onClick={() => fetchrecipe(recipes.length, Searchquery)}
                     className="bg-accent hover:bg-accent-hover text-white rounded px-6 py-2 font-medium"
                 >
                     Load More

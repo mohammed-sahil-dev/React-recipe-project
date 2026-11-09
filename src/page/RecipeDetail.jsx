@@ -12,7 +12,6 @@ function RecipeDetail() {
     async function fetchrecipe(param) {
         try {
             const { data } = await axios.get(`https://dummyjson.com/recipes/${id}`)
-            console.log(data);
             setrecipe(data)
 
         } catch (error) {
