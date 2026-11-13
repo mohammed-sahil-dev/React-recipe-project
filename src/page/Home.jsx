@@ -61,7 +61,7 @@ function Home() {
     if (errorMsg) {
         return (
             <main className="max-w-6xl mx-auto px-4 py-8">
-                <p className="text-accent text-center">{errorMsg}</p>
+                <p className="text-accent text-center bg-accent/10 border border-accent/20 rounded-lg px-4 py-3 max-w-md mx-auto">{errorMsg}</p>
             </main>
         );
     }
@@ -70,14 +70,22 @@ function Home() {
         <main className="max-w-6xl mx-auto px-4 py-8">
             { }
             { }
-            <form onSubmit={handleSearch} className="flex gap-2 max-w-md mx-auto mb-8">
+            <section className="text-center mb-10">
+                <h1 className="font-serif text-4xl sm:text-5xl font-bold tracking-tight text-text mb-3">
+                    Find something good to cook
+                </h1>
+                <p className="text-muted max-w-xl mx-auto">
+                    Browse recipes, check cooking time and difficulty, and open any dish for the full ingredients and steps.
+                </p>
+            </section>
+            <form onSubmit={handleSearch} className="flex gap-2 max-w-xl mx-auto mb-10">
                 <input
                     type="text"
                     name='query'
                     placeholder="Search recipes..."
-                    className="flex-1 border border-border rounded px-3 py-2 bg-card text-text outline-none focus:border-accent"
+                    className="flex-1 border border-border rounded-lg px-4 py-3 bg-card text-text shadow-sm placeholder:text-muted/70 outline-none transition focus:border-accent focus:ring-4 focus:ring-accent/15"
                 />
-                <button type="sumbit" className="bg-accent hover:bg-accent-hover text-white rounded px-4 py-2 font-medium">
+                <button type="sumbit" className="bg-accent hover:bg-accent-hover active:scale-95 text-white rounded-lg px-6 py-3 font-medium shadow-sm transition">
                     Search
                 </button>
 
@@ -85,9 +93,14 @@ function Home() {
 
             </form>
 
-            {loading && <p className='text-center py-6 text-muted'>Loading....</p>}
+            {loading && (
+                <p className='flex items-center justify-center gap-3 py-8 text-muted'>
+                    <span className="h-5 w-5 animate-spin rounded-full border-2 border-border border-t-accent" />
+                    Loading....
+                </p>
+            )}
             {!loading && recipes.length === 0 && (
-                <p className='text-center py-6 text-muted'>{`No recipes found for '${Searchquery}'`}</p>
+                <p className='text-center py-10 text-muted bg-card border border-dashed border-border rounded-xl'>{`No recipes found for '${Searchquery}'`}</p>
             )}
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -101,7 +114,7 @@ function Home() {
                 <button
                     type="button"
                     onClick={() => fetchrecipe(recipes.length, Searchquery)}
-                    className="bg-accent hover:bg-accent-hover text-white rounded px-6 py-2 font-medium"
+                    className="bg-accent hover:bg-accent-hover active:scale-95 text-white rounded-lg px-8 py-3 font-medium shadow-sm transition"
                 >
                     Load More
                 </button>

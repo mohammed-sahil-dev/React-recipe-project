@@ -13,7 +13,7 @@ function App() {
 
 
   return (
-    <div className="min-h-screen bg-background text-text font-sans">
+    <div className="min-h-screen bg-background text-text font-sans antialiased">
        <Navbar/>
    <Routes>
     <Route path="/" element= {<Home/>} />

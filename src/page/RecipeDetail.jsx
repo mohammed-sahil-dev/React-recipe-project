@@ -28,7 +28,12 @@ function RecipeDetail() {
     }, [])
 
     if (loading) {
-        return <p className='text-center py-6 text-muted'>Loading....</p>
+        return (
+            <p className='flex items-center justify-center gap-3 py-16 text-muted'>
+                <span className="h-5 w-5 animate-spin rounded-full border-2 border-border border-t-accent" />
+                Loading....
+            </p>
+        )
     }
 
 
@@ -49,7 +54,7 @@ function RecipeDetail() {
                     </svg>
                     Back to Home
                 </Link>
-                <p className="text-accent">{errorMsg || "Recipe not found."}</p>
+                <p className="text-accent bg-accent/10 border border-accent/20 rounded-lg px-4 py-3">{errorMsg || "Recipe not found."}</p>
             </main>
         );
     }
@@ -57,8 +62,8 @@ function RecipeDetail() {
     return (
         <main className="max-w-6xl mx-auto px-4 py-8">
 
-            <Link to={"/"} className="text-accent hover:underline inline-flex items-center gap-1 mb-6">
-                <svg className="w-4 h-4 stroke-current fill-none" strokeWidth="2" viewBox="0 0 24 24">
+            <Link to={"/"} className="group text-accent hover:text-accent-hover inline-flex items-center gap-1.5 mb-6 font-medium transition-colors">
+                <svg className="w-4 h-4 stroke-current fill-none transition-transform group-hover:-translate-x-1" strokeWidth="2" viewBox="0 0 24 24">
                     <line x1="19" y1="12" x2="5" y2="12" />
                     <polyline points="12 19 5 12 12 5" />
                 </svg>
@@ -69,10 +74,10 @@ function RecipeDetail() {
                 <img
                     src={recipe.image}
                     alt={recipe.name}
-                    className="w-full md:w-1/2 h-80 object-cover rounded-md border border-border"
+                    className="w-full md:w-1/2 h-80 md:h-96 object-cover rounded-xl border border-border shadow-sm"
                 />
                 <div className="md:w-1/2 flex flex-col justify-center">
-                    <h1 className="font-serif text-3xl font-bold text-text mb-2">{recipe.name}</h1>
+                    <h1 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-text mb-2">{recipe.name}</h1>
                     <p className="text-muted mb-4">{recipe.cuisine} - {recipe.difficulty}</p>
                     <div className="flex items-center gap-1 mb-4 font-medium">
                         <svg className="w-4 h-4 fill-accent" viewBox="0 0 24 24">
@@ -80,33 +85,33 @@ function RecipeDetail() {
                         </svg>
                         <span>{recipe.rating} ({recipe.reviewCount} reviews)</span>
                     </div>
-                    <div className="grid grid-cols-2 gap-2 text-sm border-t border-border pt-4 mb-4">
-                        <p><strong>Prep time:</strong> {recipe.prepTimeMinutes} mins</p>
-                        <p><strong>Cook time:</strong> {recipe.cookTimeMinutes} mins</p>
-                        <p><strong>Servings:</strong> {recipe.servings}</p>
-                        <p><strong>Calories:</strong> {recipe.caloriesPerServing} kcal</p>
+                    <div className="grid grid-cols-2 gap-3 text-sm pt-4 mb-5">
+                        <p className="bg-card border border-border rounded-lg px-4 py-3 font-medium"><strong className="block text-xs uppercase tracking-wide text-muted font-semibold mb-0.5">Prep time</strong> {recipe.prepTimeMinutes} mins</p>
+                        <p className="bg-card border border-border rounded-lg px-4 py-3 font-medium"><strong className="block text-xs uppercase tracking-wide text-muted font-semibold mb-0.5">Cook time</strong> {recipe.cookTimeMinutes} mins</p>
+                        <p className="bg-card border border-border rounded-lg px-4 py-3 font-medium"><strong className="block text-xs uppercase tracking-wide text-muted font-semibold mb-0.5">Servings</strong> {recipe.servings}</p>
+                        <p className="bg-card border border-border rounded-lg px-4 py-3 font-medium"><strong className="block text-xs uppercase tracking-wide text-muted font-semibold mb-0.5">Calories</strong> {recipe.caloriesPerServing} kcal</p>
                     </div>
                     <p className="text-sm text-muted mb-1">
-                        <strong>Meal Type:</strong> {recipe.mealType?.join(', ')}
+                        <strong className="text-text">Meal Type:</strong> {recipe.mealType?.join(', ')}
                     </p>
                     <p className="text-sm text-muted">
-                        <strong>Tags:</strong> {recipe.tags?.join(', ')}
+                        <strong className="text-text">Tags:</strong> {recipe.tags?.join(', ')}
                     </p>
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 border-t border-border pt-8">
-                <div>
-                    <h2 className="font-serif text-xl font-bold mb-4">Ingredients</h2>
-                    <ul className="list-disc pl-5 space-y-1">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:items-start pt-4">
+                <div className="bg-card border border-border rounded-xl p-6 shadow-sm">
+                    <h2 className="font-serif text-xl font-bold mb-4 pb-3 border-b border-border">Ingredients</h2>
+                    <ul className="list-disc pl-5 space-y-2 marker:text-accent">
                         {recipe.ingredients?.map((item, index) => (
                             <li key={index}>{item}</li>
                         ))}
                     </ul>
                 </div>
-                <div>
-                    <h2 className="font-serif text-xl font-bold mb-4">Instructions</h2>
-                    <ol className="list-decimal pl-5 space-y-2">
+                <div className="bg-card border border-border rounded-xl p-6 shadow-sm">
+                    <h2 className="font-serif text-xl font-bold mb-4 pb-3 border-b border-border">Instructions</h2>
+                    <ol className="list-decimal pl-5 space-y-3 leading-relaxed marker:text-accent marker:font-bold">
                         {recipe.instructions?.map((step, index) => (
                             <li key={index}>{step}</li>
                         ))}
